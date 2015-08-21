@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         // Watch for changes to the main file to trigger uglification and hinting
         watch: {
             js: {
-                files: ['jquery.boostrap-purr.js'],
+                files: ['jquery-bootstrap-purr.js'],
                 tasks: ['jshint', 'uglify'],
                 options: {
                     livereload: true,
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
         // Check the code meets the following standards
         jshint: {
-            all: ['jquery.boostrap-purr.js'],
+            all: ['jquery-bootstrap-purr.js'],
             options: {
                 curly: true,
                 eqeqeq: true,
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
         uglify: {
             js: {
                 files: {
-                    'jquery.boostrap-purr.min.js': 'jquery.boostrap-purr.js',
+                    'jquery-bootstrap-purr.min.js': 'jquery-bootstrap-purr.js',
                 },
                 options: {
                     // See the uglify documentation for more details

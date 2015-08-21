@@ -1,0 +1,13 @@
+{
+    "name" : "bootstrap-purr",
+    "version" : "0.1.0",
+    "license": "MIT",
+    "repository": "https://github.com/softwarespot/bootstrap-purr.git",
+    "devDependencies" : {
+        "grunt" :                       "latest",
+        "grunt-contrib-uglify":         "*",
+        "grunt-contrib-jshint":         "*",
+        "grunt-contrib-watch":          "*",
+        "matchdep":                     "*"
+    }
+}

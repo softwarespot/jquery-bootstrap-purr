@@ -1,0 +1,21 @@
+{
+  "name": "bootstrap-purr",
+  "homepage": "https://github.com/softwarespot/bootstrap-purr.git",
+  "description": "Pretty simple jQuery plugin that turns standard Bootstrap alerts into hovering 'Purr-like' notifications.",
+  "main": "jquery-bootstrap-purr.js",
+  "keywords": [
+    "alerts",
+    "bootstrap",
+    "bootstrap-purr",
+    "notifications"
+  ],
+  "license": "MIT",
+  "ignore": [
+  ],
+  "dependencies": {
+    "bootstrap": ">=3.0.0",
+    "jquery": ">=1.7.0"
+  },
+  "devDependencies": {
+  }
+}

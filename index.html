@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery-bootstrap-purr Example</title>
+
+    <!--Font-->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
+
+    <!--Mobile Specific Metas-->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Stylesheets-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <style>
+        /*Body styling*/
+        body {
+            font-family: 'Open Sans', sans-serif, Arial;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="jquery-bootstrap-purr.js"></script>
+
+    <script>
+        $(function() {
+
+            $.bootstrapPurr('This is a simple "purr" that is draggable with the mouse. Drag me!');
+
+            setTimeout(function() {
+                $.bootstrapPurr('This is a "purr" with the type set to "success"', {
+                    type: 'success'
+                });
+            }, 1000);
+
+            setTimeout(function() {
+                $.bootstrapPurr('This is a "purr" with the multiple options that have been set', {
+                    type: 'danger',
+                    align: 'center',
+                    width: 'auto',
+                    allow_dismiss: false
+                });
+            }, 2000);
+
+            setTimeout(function() {
+                $.bootstrapPurr('This is another "purr" with the  multiple options set', {
+                    type: 'info',
+                    align: 'left',
+                    stackup_spacing: 30
+                });
+            }, 3000);
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -32,10 +32,10 @@
         if (isBoolean(options.allow_dismiss) && options.allow_dismiss) {
             // Close button
             var $button = $('<button/>')
-                    .attr('type', 'button')
-                    .addClass('close')
-                    .attr('data-dismiss', 'alert')
-                    .attr('aria-label', 'Close'),
+                .attr('type', 'button')
+                .addClass('close')
+                .attr('data-dismiss', 'alert')
+                .attr('aria-label', 'Close'),
 
                 // The small 'x' in the top right hand corner
                 $cross = $('<span/>')
@@ -80,6 +80,9 @@
             options.element = 'body';
         }
 
+        // Convert to lowercase
+        options.element = options.element.toLowerCase();
+
         // Create a css object literal
         var css = {
             display: 'none',
@@ -91,8 +94,11 @@
 
         css[options.offset.from] = offsetAmount + 'px';
 
+        // Convert to lowercase
+        options.width = options.width.toLowerCase();
+
         if (options.width !== 'auto' && $.isNumeric(options.width)) {
-           css.width = options.width + 'px';
+            css.width = options.width + 'px';
         }
 
         // Apply the css styles from above
@@ -145,20 +151,21 @@
 
             // Object to store the mouse co-ordinates
             var mouse = {
-                    x: 0,
-                    y: 0,
-                    update: function (event) {
-                        this.x = event.pageX;
-                        this.y = event.pageY;
-                    }
-                };
+                x: 0,
+                y: 0,
+                // Update function
+                update: function (event) {
+                    this.x = event.pageX;
+                    this.y = event.pageY;
+                }
+            };
 
             // Create a function expression to reference at a later stage
             var mouseDown = function (event) {
                 event.preventDefault();
 
                 // If not absolute, fixed or relative, then set the position to relative by default
-                if (!/^(absolute|fixed|relative)$/i.test($alert.css('position'))) {
+                if (!/^(ABSOLUTE|FIXED|RELATIVE)$/i.test($alert.css('position'))) {
                     $alert.css('position', 'relative');
                 }
 
@@ -176,37 +183,37 @@
                     $alert.offset({
                         left: (offset.left + (event.pageX - mouse.x)),
                         top: (offset.top + (event.pageY - mouse.y))
-                     });
+                    });
 
                     // Update the mouse coordinates
                     mouse.update(event);
                 };
 
                 // Register an event for 'MOUSE_MOVE' on the parent element
-                $parent.on(events.MOUSE_MOVE, mouseMove);
+                $parent.on(Events.MOUSE_MOVE, mouseMove);
 
                 // Tidy up registered events (good housekeeping)
 
                 // Register an event for 'MOUSE_UP' on the parent element
-                $parent.one(events.MOUSE_UP, function () {
+                $parent.one(Events.MOUSE_UP, function () {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
                     // Unregister the 'MOUSE_MOVE' event
-                    $parent.off(events.MOUSE_MOVE, mouseMove);
+                    $parent.off(Events.MOUSE_MOVE, mouseMove);
                 });
             };
 
             // Register an event for 'MOUSE_DOWN' on the alert
-            $alert.on(events.MOUSE_DOWN, mouseDown);
+            $alert.on(Events.MOUSE_DOWN, mouseDown);
 
             // Tidy up registered events (good housekeeping)
 
             // When the alert is closed, unregister the 'ALERT_CLOSED' event
-            $alert.one(events.ALERT_CLOSED, function () {
+            $alert.one(Events.ALERT_CLOSED, function () {
                 // 'ALERT_CLOSED' will automatically be unregistered, due to using .one()
 
                 // Unregister the 'MOUSE_DOWN' event applied to the parent element
-                $alert.off(events.MOUSE_DOWN, mouseDown);
+                $alert.off(Events.MOUSE_DOWN, mouseDown);
             });
 
         }
@@ -217,7 +224,7 @@
 
     // Constants
 
-    var events = {
+    var Events = {
         // Called by Bootstrap as to when an alert is closed completely
         ALERT_CLOSED: 'closed.bs.alert',
 

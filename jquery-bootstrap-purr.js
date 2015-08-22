@@ -58,7 +58,7 @@
 
         // Check if the options.offset is correctly formatted
         options.offset.amount = $.isNumeric(options.offset.amount) ? options.offset.amount : 20;
-        options.offset.from = isString(options.offset.from) && /^TOP|BOTTOM$/i.test(options.offset.from) ? options.offset.from : 'top';
+        options.offset.from = /^TOP|BOTTOM$/i.test(options.offset.from) ? options.offset.from.toLowerCase() : 'top';
 
         // If 'stack spacing' is not numeric, then set the default to 10
         if (!$.isNumeric(options.stackup_spacing)) {
@@ -66,22 +66,19 @@
         }
 
         // Store the offset amount for use outside the forEach()
-        var offsetAmount = options.offset.amount;
+        var offsetTotal = options.offset.amount;
 
         // For each element with the class name of '.bootstrap-purr', calculate the total offset
         $('.bootstrap-purr').each(function () {
             // Cache the jQuery selector
             var $this = $(this);
-            offsetAmount = Math.max(offsetAmount, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
+            offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
         });
 
         // Set the default 'element' to 'body', if it's an invalid string
         if (!isString(options.element)) {
             options.element = 'body';
         }
-
-        // Convert to lowercase
-        options.element = options.element.toLowerCase();
 
         // Create a css object literal
         var css = {
@@ -92,7 +89,8 @@
             'z-index': '9999'
         };
 
-        css[options.offset.from] = offsetAmount + 'px';
+        // Set the css property i.e. top or bottom, with the offset total
+        css[options.offset.from] = offsetTotal + 'px';
 
         // Convert to lowercase
         options.width = options.width.toLowerCase();
@@ -106,6 +104,11 @@
 
         // Get the parent jQuery selector
         var $parent = $(options.element);
+
+        // If the jQuery selector is empty, then default to 'body'
+        if ($parent.length === 0) {
+            $parent = $('body');
+        }
 
         // Append the alert to the parent element
         $parent.append($alert);

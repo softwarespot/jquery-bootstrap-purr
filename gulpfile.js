@@ -32,7 +32,9 @@ gulp.task('uglify', ['clean'], function () {
                 unused: true
             }
         }))
-        .pipe(rename('jquery-bootstrap-purr.min.js'))
+        .pipe(rename({
+            suffix: '.min'
+        }))
         .pipe(gulp.dest('./'));
 });
 

@@ -34,7 +34,7 @@ Call the following command to invoke Uglify, which will minify the main JavaScri
     gulp uglify
 ```
 
-#### Build
+##### Build
 Call the following command to invoke both JSHint and Uglify.
 ```shell
     gulp

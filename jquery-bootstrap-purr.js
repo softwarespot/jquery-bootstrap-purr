@@ -228,10 +228,10 @@
     // Constants
 
     var Events = {
-        // Called by Bootstrap as to when an alert is closed completely
+        // Fired by Bootstrap when the alert has finally closed
         ALERT_CLOSED: 'closed.bs.alert',
 
-        // When the primary mouse button is  pushed down on the alert
+        // When the primary mouse button is pushed down on the alert
         MOUSE_DOWN: 'mousedown.bootstrap.purr',
 
         // When the mouse is moved whilst the primary mouse button is down. This is only created 'MOUSE_DOWN' is invoked

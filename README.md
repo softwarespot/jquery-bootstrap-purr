@@ -1,14 +1,14 @@
 # jquery-bootstrap-purr
 
-## Note: This is currently under development, therefore it is recommended you do not use in production environments until v1.0.0 has been reached. Thanks
+## Note: This is currently under active development. Therefore it's recommended you do not use in production environments until v1.0.0 has been finalised. Thanks
 
 jQuery Bootstrap Alerts
 
-Deadline for documentation completion and the public API being frozen is 2015/08/23
+Deadline for documentation completion and the public API being frozen is 2015/08/31
 
 ## Contribute
 
-To contribute to the project, you will first need to install [gulp](gulpjs.com) globally on your system. Once complete change the directory to the plugin and run the following command:
+To contribute to the project, you will first need to install [gulp](gulpjs.com) globally on your system. Once complete change the working directory to the plugin and run the following command:
 
 ```shell
     npm install

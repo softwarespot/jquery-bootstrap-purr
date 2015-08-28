@@ -35,12 +35,12 @@
                 .attr('type', 'button')
                 .addClass('close')
                 .attr('data-dismiss', 'alert')
-                .attr('aria-label', 'Close'),
+                .attr('aria-label', 'Close');
 
-                // The small 'x' in the top right hand corner
-                $cross = $('<span/>')
-                    .attr('aria-hidden', 'true')
-                    .html('&times;');
+            // The small 'x' in the top right hand corner
+            var $cross = $('<span/>')
+                .attr('aria-hidden', 'true')
+                .html('&times;');
 
             // Append the cross to the button element
             $button.append($cross);
@@ -69,11 +69,12 @@
         var offsetTotal = options.offset.amount;
 
         // For each element with the class name of '.bootstrap-purr', calculate the total offset
-        $('.bootstrap-purr').each(function () {
-            // Cache the jQuery selector
-            var $this = $(this);
-            offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
-        });
+        $('.bootstrap-purr')
+            .each(function () {
+                // Cache the jQuery selector
+                var $this = $(this);
+                offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
+            });
 
         // Set the default 'element' to 'body', if it's an invalid string
         if (!isString(options.element)) {
@@ -143,7 +144,8 @@
         if ($.isNumeric(options.delay) && options.delay > 0) {
             $alert.delay(options.delay)
                 .fadeOut('slow', function () {
-                    return $(this).alert('close');
+                    return $(this)
+                        .alert('close');
                 });
         }
 
@@ -246,18 +248,19 @@
     // Methods (Private)
 
     // Check if value is a boolean datatype
-    var isBoolean = function (value) {
+    function isBoolean(value) {
 
         return $.type(value) === 'boolean';
 
-    };
+    }
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
-    var isString = function (value) {
+    function isString(value) {
 
-        return $.type(value) === 'string' && value.trim().length > 0;
+        return $.type(value) === 'string' && value.trim()
+            .length > 0;
 
-    };
+    }
 
     // Defaults
 

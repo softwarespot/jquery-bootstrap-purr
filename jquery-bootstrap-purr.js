@@ -137,21 +137,15 @@
                 $alert.css('right', '20px');
         }
 
-        // Display the alert
-        $alert.fadeIn('fast');
+        // Set the default value of 'draggable' if not a boolean datatype
+        options.draggable = isBoolean(options.draggable) ? options.draggable : true;
 
-        // Create a delay on fade out if greater than zero,
-        // otherwise the alert will stay there indefinitely
-        if ($.isNumeric(options.delay) && options.delay > 0) {
-            $alert.delay(options.delay)
-                .fadeOut('slow', function () {
-                    return $(this)
-                        .alert('close');
-                });
-        }
+        // Create variables to store anonymous functions. These are referenced in the delay closure
+        var mouseDown = null;
+        var mouseMove = null;
 
         // If 'draggable' is boolean and has been set to true
-        if (isBoolean(options.draggable) && options.draggable) {
+        if (options.draggable) {
             // Add moving cursor to signify they can be moved
             $alert.css('cursor', 'move');
 
@@ -167,7 +161,7 @@
             };
 
             // Create a function expression to reference at a later stage
-            var mouseDown = function (event) {
+            mouseDown = function (event) {
                 event.preventDefault();
 
                 // If not absolute, fixed or relative, then set the position to relative by default
@@ -179,7 +173,7 @@
                 mouse.update(event);
 
                 // Create a function expression to reference at a later stage
-                var mouseMove = function (event) {
+                mouseMove = function (event) {
                     event.preventDefault();
 
                     // Get the offset object relative to the document
@@ -222,6 +216,28 @@
                 $alert.off(Events.MOUSE_DOWN, mouseDown);
             });
 
+        }
+
+        // Display the alert
+        $alert.fadeIn('fast');
+
+        // Create a delay on fade out if greater than zero,
+        // otherwise the alert will stay there indefinitely
+        if ($.isNumeric(options.delay) && options.delay > 0) {
+            $alert.delay(options.delay).fadeOut('slow', function () {
+                // Unregister events
+                if (options.draggable) {
+                    // Tidy up registered events (good housekeeping)
+
+                    // Unregister the 'MOUSE_MOVE' event
+                    $parent.off(Events.MOUSE_MOVE, mouseMove);
+
+                    // Unregister the 'MOUSE_DOWN' event applied to the parent element
+                    $alert.off(Events.MOUSE_DOWN, mouseDown);
+                }
+
+                return $alert.alert('close');
+            });
         }
 
         // Return the alert selector

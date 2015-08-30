@@ -60,6 +60,17 @@
                 });
             }, 3000);
 
+            // Fifth alert shown after a delay of 4 seconds
+            setTimeout(function() {
+                $.bootstrapPurr('This is a "purr" that can be dismissed on hover', {
+                    type: 'danger',
+                    align: 'center',
+                    width: 'auto',
+                    allow_dismiss: true,
+                    allow_dismiss_type: 'hover'
+                });
+            }, 4000);
+
         });
     </script>
 

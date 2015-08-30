@@ -87,6 +87,10 @@ The following options below can either be passed via the `options` parameter or 
         // If true then a cross will be displayed in the top right hand corner of the alert
         allow_dismiss: true, // (true, false)
 
+        // Type of dismissal when 'allow_dismiss' is set to true. If the type is 'hover' and 'draggable' is set to true,
+        // then 'draggable' will be ignored
+        allow_dismiss_type: 'click', // ('click', 'hover')
+
         // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)
 

@@ -31,15 +31,17 @@
 
     <script>
         $(function() {
+            // First alert
+            $.bootstrapPurr('This is a simple "purr" which is draggable with the primary mouse. Drag me!');
 
-            $.bootstrapPurr('This is a simple "purr" that is draggable with the mouse. Drag me!');
-
+            // Second alert shown after a delay of 1 second
             setTimeout(function() {
                 $.bootstrapPurr('This is a "purr" with the type set to "success"', {
                     type: 'success'
                 });
             }, 1000);
 
+            // Third alert shown after a delay of 2 seconds
             setTimeout(function() {
                 $.bootstrapPurr('This is a "purr" with the multiple options that have been set', {
                     type: 'danger',
@@ -49,6 +51,7 @@
                 });
             }, 2000);
 
+            // Fourth alert shown after a delay of 3 seconds
             setTimeout(function() {
                 $.bootstrapPurr('This is another "purr" with the  multiple options set', {
                     type: 'info',

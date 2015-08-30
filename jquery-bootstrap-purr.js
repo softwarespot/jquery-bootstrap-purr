@@ -144,7 +144,7 @@
         var mouseDown = null;
         var mouseMove = null;
 
-        // If 'draggable' is boolean and has been set to true
+        // If 'draggable' is set to true
         if (options.draggable) {
             // Add moving cursor to signify they can be moved
             $alert.css('cursor', 'move');

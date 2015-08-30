@@ -44,7 +44,7 @@ If you use bower, then just copy and paste the following command to the shell wi
     bower install jquery-bootstrap-purr
 ```
 
-Otherwise just include `jquery-bootstrap-purr.min.js` somewhere in your document, preferable after jQuery and Bootstrap (since it relies on both).
+Otherwise just include `jquery-bootstrap-purr.min.js` somewhere in your document, preferably after jQuery and Bootstrap (since it relies on these).
 
 ### Requirements
 
@@ -54,10 +54,10 @@ The plugin assumes that the following libraries have been included beforehand.
 
 ## Documentation
 
-jQuery-Bootstrap-Purr has two parameters only, the message to display and optional options. Please see below for the available options.
+jQuery-Bootstrap-Purr has two parameters. The message to display inside the alert (HTML markup allowed) and/or optional `options`. Please see below for the available options.
 
 ```javascript
-    $.bootstrapPurr(messgae, options [optional]);
+    $.bootstrapPurr(message, options [optional]);
 ```
 
 ### Options
@@ -134,4 +134,4 @@ Call the following command to invoke both JSHint and Uglify.
 
 ### Thanks
 
-The following jQuery plugin started out as a `fork` of [bootstrapGrowl](https://github.com/ifightcrime/bootstrap-growl/), but over time it became clear the direction 'Purr' was going in, was outside the scope of 'Growl'. Therefore a special thanks to the contributors of [bootstrapGrowl](https://github.com/ifightcrime/bootstrap-growl/), in which this plugin was based on.
+The following jQuery plugin started life as a `fork` of [bootstrapGrowl](https://github.com/ifightcrime/bootstrap-growl/), but over time it became clear the direction 'Purr' was going in, was outside the scope of 'Growl'. Therefore I would like to extend a special thanks to the contributors of [bootstrapGrowl](https://github.com/ifightcrime/bootstrap-growl/), for making this new plugin possible.

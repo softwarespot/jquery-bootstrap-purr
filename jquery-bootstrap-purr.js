@@ -95,7 +95,7 @@
         css[options.offset.from] = offsetTotal + 'px';
 
         // Convert to lowercase
-        options.width = options.width.toLowerCase();
+        options.width = ('' + options.width).toLowerCase();
 
         if (options.width !== 'auto' && $.isNumeric(options.width)) {
             css.width = options.width + 'px';

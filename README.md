@@ -25,7 +25,7 @@ How many times have you written the following code to display an alert on the pa
     var $alert = $('#success-alert').alert();
 ```
 
-## This is where jQuery-Bootstrap-Purr really comes into a world of its own, as you can display a message with one single line and it does all the rest for you. Now it might not make your pages look overly 'swanky', but it sure would try if it could!
+This is where jQuery-Bootstrap-Purr really comes into a world of its own, as you can display a message with one single line and it does all the rest for you. Now it might not make your pages look overly 'swanky', but it sure would try if it could!
 
 ```javascript
     <!--Use the minified version for better performance-->

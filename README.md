@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://cloud.githubusercontent.com/assets/5333690/9566952/b2d752fc-4f22-11e5-9e37-aeb7332352c4.png"/></p>
 
-A jQuery plugin for displaying `Bootstrap Alerts` dynamically on a website.
+A jQuery plugin for displaying `Bootstrap Alerts` dynamically on your website.
 
 ## What exactly is jQuery-Boostrap-Purr?
 

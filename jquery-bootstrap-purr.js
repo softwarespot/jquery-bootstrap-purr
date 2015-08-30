@@ -32,11 +32,16 @@
         // Set the default value of 'allow_dismiss' if not a boolean datatype
         options.allow_dismiss = isBoolean(options.allow_dismiss) ? options.allow_dismiss : true;
 
-        // Set the default value of 'allow_dismiss_type' if not a string and convert to upper-case if a string
-        options.allow_dismiss_type = isString(options.allow_dismiss_type) ? options.allow_dismiss_type.toUpperCase() : 'CLICK';
+        // Set the default value of 'allow_dismiss_type' if not set
+        options.allow_dismiss_type = isString(options.allow_dismiss_type) &&
+            /^CLICK|HOVER$/i.test(options.allow_dismiss_type) ?
+            options.allow_dismiss_type.toUpperCase() : 'CLICK';
+
+        var isClick = options.allow_dismiss_type === 'CLICK';
+        var isHover = options.allow_dismiss_type === 'HOVER';
 
         // If 'allow dismissal' is set to true, then add the relevant class and append a button element
-        if (options.allow_dismiss && options.allow_dismiss_type === 'CLICK') {
+        if (options.allow_dismiss && isClick) {
             // Close button
             var $button = $('<button/>')
                 .attr('type', 'button')
@@ -151,7 +156,7 @@
         var mouseMove = null;
 
         // If 'draggable' is set to true
-        if (options.draggable && options.allow_dismiss_type !== 'HOVER') {
+        if (options.draggable && !isHover) {
             // Add moving cursor to signify they can be moved
             $alert.css('cursor', 'move');
 
@@ -232,7 +237,7 @@
         // Create a function expression to reference at a later stage
         var alertClose = function () {
             // Unregister events
-            if (options.draggable && options.allow_dismiss_type !== 'HOVER') {
+            if (options.draggable && !isHover) {
 
                 // Tidy up registered events (good housekeeping)
 
@@ -251,7 +256,7 @@
         };
 
         // If 'allow_dismiss' is true and the type is 'HOVER', then register an event
-        if (options.allow_dismiss && options.allow_dismiss_type === 'HOVER') {
+        if (options.allow_dismiss && isHover) {
 
             // Create a function expression to reference at a later stage
             mouseHover = function () {

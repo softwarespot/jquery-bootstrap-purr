@@ -5,7 +5,7 @@
  * https://github.com/softwarespot/bootstrap-purr
  * Author: softwarespot
  * Licensed under the MIT license
- * Version: 0.1.0
+ * Version: 1.0.0
  */
 ; // jshint ignore:line
 (function ($, undefined) {

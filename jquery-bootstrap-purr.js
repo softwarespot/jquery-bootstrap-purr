@@ -29,8 +29,14 @@
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
-        // If the 'allow dismissal' is a boolean datatype and set to true, then add the relevant class and append a button element
-        if (isBoolean(options.allow_dismiss) && options.allow_dismiss) {
+        // Set the default value of 'allow_dismiss' if not a boolean datatype
+        options.allow_dismiss = isBoolean(options.allow_dismiss) ? options.allow_dismiss : true;
+
+        // Set the default value of 'allow_dismiss_type' if not a string and convert to upper-case if a string
+        options.allow_dismiss_type = isString(options.allow_dismiss_type) ? options.allow_dismiss_type.toUpperCase() : 'CLICK';
+
+        // If 'allow dismissal' is set to true, then add the relevant class and append a button element
+        if (options.allow_dismiss && options.allow_dismiss_type === 'CLICK') {
             // Close button
             var $button = $('<button/>')
                 .attr('type', 'button')
@@ -145,7 +151,7 @@
         var mouseMove = null;
 
         // If 'draggable' is set to true
-        if (options.draggable) {
+        if (options.draggable && options.allow_dismiss_type !== 'HOVER') {
             // Add moving cursor to signify they can be moved
             $alert.css('cursor', 'move');
 
@@ -215,6 +221,46 @@
                 // Unregister the 'MOUSE_DOWN' event applied to the parent element
                 $alert.off(Events.MOUSE_DOWN, mouseDown);
             });
+        }
+
+        // Set the default value of 'delay' if not a number datatype or greater than zero
+        options.delay = $.isNumeric(options.delay) && options.delay > 0 ? options.delay : 5000;
+
+        // Create a variable to store an anonymous functions. This is referenced in the delay closure
+        var mouseHover = null;
+
+        // Create a function expression to reference at a later stage
+        var alertClose = function () {
+            // Unregister events
+            if (options.draggable && options.allow_dismiss_type !== 'HOVER') {
+
+                // Tidy up registered events (good housekeeping)
+
+                // Unregister the 'MOUSE_MOVE' event
+                $parent.off(Events.MOUSE_MOVE, mouseMove);
+
+                // Unregister the 'MOUSE_DOWN' event applied to the parent element
+                $alert.off(Events.MOUSE_DOWN, mouseDown);
+
+            }
+
+            // Unregister the 'MOUSE_HOVER' event
+            $alert.off(Events.MOUSE_HOVER, mouseHover);
+
+            $alert.alert('close');
+        };
+
+        // If 'allow_dismiss' is true and the type is 'HOVER', then register an event
+        if (options.allow_dismiss && options.allow_dismiss_type === 'HOVER') {
+
+            // Create a function expression to reference at a later stage
+            mouseHover = function () {
+                $alert.fadeOut('slow');
+                alertClose();
+            };
+
+            // When the alert is hovered over, register the 'MOUSE_HOVER' event
+            $alert.on(Events.MOUSE_HOVER, mouseHover);
 
         }
 
@@ -223,21 +269,10 @@
 
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
-        if ($.isNumeric(options.delay) && options.delay > 0) {
-            $alert.delay(options.delay).fadeOut('slow', function () {
-                // Unregister events
-                if (options.draggable) {
-                    // Tidy up registered events (good housekeeping)
+        if (options.delay > 0) {
 
-                    // Unregister the 'MOUSE_MOVE' event
-                    $parent.off(Events.MOUSE_MOVE, mouseMove);
+            $alert.delay(options.delay).fadeOut('slow', alertClose);
 
-                    // Unregister the 'MOUSE_DOWN' event applied to the parent element
-                    $alert.off(Events.MOUSE_DOWN, mouseDown);
-                }
-
-                return $alert.alert('close');
-            });
         }
 
         // Return the alert selector
@@ -252,6 +287,9 @@
 
         // When the primary mouse button is pushed down on the alert
         MOUSE_DOWN: 'mousedown.bootstrap.purr',
+
+        // When the primary mouse button is hovered over on the alert
+        MOUSE_HOVER: 'mouseenter.bootstrap.purr',
 
         // When the mouse is moved whilst the primary mouse button is down. This is only created 'MOUSE_DOWN' is invoked
         MOUSE_MOVE: 'mousemove.bootstrap.purr',
@@ -302,6 +340,10 @@
 
         // If true then a cross will be displayed in the top right hand corner of the alert
         allow_dismiss: true, // (true, false)
+
+        // Type of dismissal when 'allow_dismiss' is set to true. If the type is 'hover' and 'draggable' is set to true,
+        // then 'draggable' will be ignored
+        allow_dismiss_type: 'click', // ('click', 'hover')
 
         // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)

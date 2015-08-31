@@ -255,13 +255,15 @@
             $alert.alert('close');
         };
 
+        // Add the complete function to the 'animate hide' options
+        $.extend(options.animate_hide, {complete: alertClose});
+
         // If 'allow_dismiss' is true and the type is 'HOVER', then register an event
         if (options.allow_dismiss && isHover) {
 
             // Create a function expression to reference at a later stage
             mouseHover = function () {
-                $alert.fadeOut('slow');
-                alertClose();
+                $alert.animate(options.animate_hide, alertClose);
             };
 
             // When the alert is hovered over, register the 'MOUSE_HOVER' event
@@ -270,13 +272,14 @@
         }
 
         // Display the alert
-        $alert.fadeIn('fast');
+        $alert.animate(options.animate_show);
 
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if (options.delay > 0) {
 
-            $alert.delay(options.delay).fadeOut('slow', alertClose);
+            $alert.delay(options.delay).animate(options.animate_hide, alertClose);
+
 
         }
 
@@ -349,6 +352,18 @@
         // Type of dismissal when 'allow_dismiss' is set to true. If the type is 'hover' and 'draggable' is set to true,
         // then 'draggable' will be ignored
         allow_dismiss_type: 'click', // ('click', 'hover')
+
+        // Options to pass to the .animate() function when displaying the Purr
+        animate_show: {
+            opacity: 'show',
+            duration: 'fast'
+        },
+
+        // Options to pass to the .animate() function when closing the Purr
+        animate_hide: {
+            opacity: 'hide',
+            duration: 'slow'
+        },
 
         // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)

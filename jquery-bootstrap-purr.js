@@ -355,15 +355,15 @@
         // then 'draggable' will be ignored
         allow_dismiss_type: 'click', // ('click', 'hover')
 
-        // Options to pass to the .animate() function when displaying the Purr
+        // Options to pass to the .animate() function when displaying the an alert
         animate_show: {
-            opacity: 'show',
+            opacity: 'show', // See the animate() function in jQuery for more details
             duration: 'fast'
         },
 
-        // Options to pass to the .animate() function when closing the Purr
+        // Options to pass to the .animate() function when closing the an alert
         animate_hide: {
-            opacity: 'hide',
+            opacity: 'hide', // See the animate() function in jQuery for more details
             duration: 'slow'
         },
 

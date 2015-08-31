@@ -91,6 +91,18 @@ The following options below can either be passed via the `options` parameter or 
         // then 'draggable' will be ignored
         allow_dismiss_type: 'click', // ('click', 'hover')
 
+        // Options to pass to the .animate() function when displaying the an alert
+        animate_show: {
+            opacity: 'show', // See the animate() function in jQuery for more details
+            duration: 'fast'
+        },
+
+        // Options to pass to the .animate() function when closing the an alert
+        animate_hide: {
+            opacity: 'hide', // See the animate() function in jQuery for more details
+            duration: 'slow'
+        },
+
         // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)
 

@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-purr",
-  "homepage": "https://github.com/softwarespot/bootstrap-purr.git",
+  "homepage": "https://github.com/softwarespot/jquery-bootstrap-purr.git",
   "description": "A jQuery plugin for displaying `Bootstrap Alerts` dynamically on your website.",
   "main": "jquery-bootstrap-purr.js",
   "keywords": [

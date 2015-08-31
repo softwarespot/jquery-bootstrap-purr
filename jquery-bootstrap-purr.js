@@ -1,8 +1,8 @@
 /* global jQuery */
 
 /*
- * bootstrap-purr
- * https://github.com/softwarespot/bootstrap-purr
+ * jQuery-Bootstrap-Purr
+ * https://github.com/softwarespot/jquery-bootstrap-purr
  * Author: softwarespot
  * Licensed under the MIT license
  * Version: 1.0.0

@@ -2,7 +2,7 @@
     "name" : "bootstrap-purr",
     "version" : "1.0.0",
     "license": "MIT",
-    "repository": "https://github.com/softwarespot/bootstrap-purr.git",
+    "repository": "https://github.com/softwarespot/jquery-bootstrap-purr.git",
     "devDependencies" : {
         "gulp":        "~3.9.0",
         "gulp-uglify": "~1.2.0",

@@ -256,7 +256,9 @@
         };
 
         // Add the complete function to the 'animate hide' options
-        $.extend(options.animate_hide, {complete: alertClose});
+        $.extend(options.animate_hide, {
+            complete: alertClose
+        });
 
         // If 'allow_dismiss' is true and the type is 'HOVER', then register an event
         if (options.allow_dismiss && isHover) {

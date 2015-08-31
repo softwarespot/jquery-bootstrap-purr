@@ -282,7 +282,6 @@
 
             $alert.delay(options.delay).animate(options.animate_hide, alertClose);
 
-
         }
 
         // Return the alert selector

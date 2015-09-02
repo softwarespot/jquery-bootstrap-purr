@@ -26,7 +26,7 @@ gulp.task('jshint', function () {
 
 // Uglify aka minify the main file
 gulp.task('uglify', ['clean'], function () {
-    return gulp.src('./'.Assets.main)
+    return gulp.src('./' + Assets.main)
         .pipe(uglify({
             // See the uglify documentation for more details
             compress: {

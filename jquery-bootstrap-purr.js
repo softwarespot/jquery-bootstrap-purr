@@ -251,6 +251,7 @@
             $alert.off(Events.MOUSE_HOVER, mouseHover);
 
             $alert.alert('close');
+            console.log('Close');
         };
 
         // Add the complete function to the 'animate hide' options
@@ -258,15 +259,17 @@
             complete: alertClose
         });
 
-        // If 'allow_dismiss' is true and the type is 'HOVER', then register an event
+        // If 'allow_dismiss' is true and the type is 'HOVER', then register the 'MOUSE_HOVER' event
         if (options.allow_dismiss && isHover) {
 
             // Create a function expression to reference at a later stage
             mouseHover = function () {
-                $alert.animate(options.animate_hide, alertClose);
+                $alert.animate(options.animate_hide, options.animate_hide);
+                // For some bizzare reason, alertClose isn't called by animate()
+                alertClose();
             };
 
-            // When the alert is hovered over, register the 'MOUSE_HOVER' event
+            // When the alert is hovered over. Register the 'MOUSE_HOVER' event
             $alert.on(Events.MOUSE_HOVER, mouseHover);
 
         }
@@ -277,9 +280,7 @@
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if (options.delay > 0) {
-
-            $alert.delay(options.delay).animate(options.animate_hide, alertClose);
-
+            $alert.delay(options.delay).animate(options.animate_hide, options.animate_hide);
         }
 
         // Return the alert selector

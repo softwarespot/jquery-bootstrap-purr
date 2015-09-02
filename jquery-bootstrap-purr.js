@@ -251,7 +251,6 @@
             $alert.off(Events.MOUSE_HOVER, mouseHover);
 
             $alert.alert('close');
-            console.log('Close');
         };
 
         // Add the complete function to the 'animate hide' options

@@ -263,17 +263,15 @@
         // Set the default value of 'draggable' if not a boolean datatype
         options.delay_pause = isBoolean(options.delay_pause) ? options.delay_pause : false;
 
-        // Store the setTimeout id
-        var timeoutId = null;
-
         // Store if to dismiss the alert on hover
         var isDismissHover = options.allow_dismiss && isHover;
 
         // Store if to pause the dismissal on hover
         var isDelayPause = options.delay > 0 && options.delay_pause;
 
-        // Create a variable to store an anonymous function
-        var timeoutStart = null;
+        // Store whether or not the pause alert has been called or timeout has cancelled
+        var isPaused = false;
+        var isTimedOut = false;
 
         // If 'allow_dismiss' is true and the type is 'hover' OR
         // if delay on hover, then register the 'MOUSE_HOVER' event
@@ -285,13 +283,18 @@
 
                     // For some bizzare reason, alertClose isn't called by animate()
                     alertClose();
-                } else if (isDelayPause && timeoutId !== null) {
-                    // Clear the previous setTimeout id
-                    clearTimeout(timeoutId);
+                } else if (isDelayPause) {
+                    isPaused = true;
 
                     // Register a 'MOUSE_LEAVE' event only once
                     $alert.one(Events.MOUSE_LEAVE, function () {
-                        timeoutStart();
+                        isPaused = false;
+                        if (isTimedOut) {
+                            $alert.animate(options.animate_hide, options.animate_hide);
+
+                            // For some bizzare reason, alertClose isn't called by animate()
+                            alertClose();
+                        }
                     });
                 }
             };
@@ -306,13 +309,12 @@
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if (options.delay > 0) {
-            timeoutStart = function () {
-                timeoutId = setTimeout(function () {
+            setTimeout(function () {
+                isTimedOut = true;
+                if (!isPaused) {
                     $alert.animate(options.animate_hide, options.animate_hide);
-                }, options.delay);
-            };
-
-            timeoutStart();
+                }
+            }, options.delay);
         }
 
         // Return the alert selector

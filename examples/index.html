@@ -54,9 +54,10 @@
 
             // Fourth alert shown after a delay of 3 seconds
             setTimeout(function() {
-                $.bootstrapPurr('This is another "purr" with the  multiple options set', {
+                $.bootstrapPurr('This is another "purr" that will display until manually closed', {
                     type: 'info',
                     align: 'left',
+                    delay: 0,
                     stackup_spacing: 30
                 });
             }, 3000);

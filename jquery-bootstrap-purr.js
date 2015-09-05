@@ -30,10 +30,10 @@
         // Set the default value of 'allow_dismiss' if not a boolean datatype
         options.allow_dismiss = isBoolean(options.allow_dismiss) ? options.allow_dismiss : true;
 
-        // Set the default value of 'allow_dismiss_type' if not set
-        options.allow_dismiss_type = isString(options.allow_dismiss_type) &&
-            /^CLICK|HOVER$/i.test(options.allow_dismiss_type) ?
-            options.allow_dismiss_type.toUpperCase() : 'CLICK';
+        // Set the default value of 'allow_dismiss_type' if not defined
+        options.allow_dismiss_type = isString(options.allow_dismiss_type) && /^CLICK|HOVER$/i.test(options.allow_dismiss_type) ?
+            options.allow_dismiss_type.toUpperCase() :
+            'CLICK';
 
         var isClick = options.allow_dismiss_type === 'CLICK';
         var isHover = options.allow_dismiss_type === 'HOVER';
@@ -79,12 +79,11 @@
         var offsetTotal = options.offset.amount;
 
         // For each element with the class name of '.bootstrap-purr', calculate the total offset
-        $('.bootstrap-purr')
-            .each(function () {
-                // Cache the jQuery selector
-                var $this = $(this);
-                offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
-            });
+        $('.bootstrap-purr').each(function () {
+            // Cache the jQuery selector
+            var $this = $(this);
+            offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
+        });
 
         // Set the default 'element' to 'body', if it's an invalid string
         if (!isString(options.element)) {
@@ -207,23 +206,13 @@
                 $parent.one(Events.MOUSE_UP, function () {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
-                    // Unregister the 'MOUSE_MOVE' event
+                    // Unregister the 'MOUSE_MOVE' event on the parent element
                     $parent.off(Events.MOUSE_MOVE, mouseMove);
                 });
             };
 
-            // Register an event for 'MOUSE_DOWN' on the alert
+            // Register an event for 'MOUSE_DOWN' on the alert element
             $alert.on(Events.MOUSE_DOWN, mouseDown);
-
-            // Tidy up registered events (good housekeeping)
-
-            // When the alert is closed, unregister the 'ALERT_CLOSED' event
-            $alert.one(Events.ALERT_CLOSED, function () {
-                // 'ALERT_CLOSED' will automatically be unregistered, due to using .one()
-
-                // Unregister the 'MOUSE_DOWN' event applied to the parent element
-                $alert.off(Events.MOUSE_DOWN, mouseDown);
-            });
         }
 
         // Create variable to store anonymous functions
@@ -231,25 +220,30 @@
         var mouseLeave = null;
 
         // Create a function expression to reference at a later stage
+        // This close the alert
         var alertClose = function () {
+            $alert.alert('close');
+        };
+
+        // Create a function expression to reference at a later stage
+        // Unregister events
+        var unregisterEvents = function () {
             // Tidy up registered events (good housekeeping)
             if (options.draggable && !isHover) {
                 // Tidy up registered events (good housekeeping)
 
-                // Unregister the 'MOUSE_MOVE' event
+                // Unregister the 'MOUSE_MOVE' event applied to the parent element
                 $parent.off(Events.MOUSE_MOVE, mouseMove);
 
-                // Unregister the 'MOUSE_DOWN' event applied to the parent element
+                // Unregister the 'MOUSE_DOWN' event applied to the alert element
                 $alert.off(Events.MOUSE_DOWN, mouseDown);
             }
 
-            // Unregister the 'MOUSE_HOVER' event
+            // Unregister the 'MOUSE_HOVER' event applied to the alert element
             $alert.off(Events.MOUSE_HOVER, mouseHover);
 
-            // Unregister the 'MOUSE_LEAVE' event
+            // Unregister the 'MOUSE_LEAVE' event applied to the alert element
             $alert.off(Events.MOUSE_LEAVE, mouseLeave);
-
-            $alert.alert('close');
         };
 
         // Add the complete function to the 'animate hide' options
@@ -258,42 +252,36 @@
         });
 
         // Set the default value of 'delay' if not a number datatype or greater than zero
-        options.delay = $.isNumeric(options.delay) && options.delay > 0 ? options.delay : 5000;
+        options.delay = $.isNumeric(options.delay) && options.delay >= 0 ? options.delay : 5000;
 
         // Set the default value of 'draggable' if not a boolean datatype
         options.delay_pause = isBoolean(options.delay_pause) ? options.delay_pause : false;
 
         // Store if to dismiss the alert on hover
-        var isDismissHover = options.allow_dismiss && isHover;
+        var isDismissOnHover = options.allow_dismiss && isHover;
 
         // Store if to pause the dismissal on hover
-        var isDelayPause = options.delay > 0 && options.delay_pause;
+        var isPauseOnHover = options.delay > 0 && options.delay_pause;
 
-        // Store whether or not the pause alert has been called or timeout has cancelled
+        // Store whether or not the pause alert has taken place or the timeout has been cancelled
         var isPaused = false;
-        var isTimedOut = false;
+        var hasTimedout = false;
 
         // If 'allow_dismiss' is true and the type is 'hover' OR
         // if delay on hover, then register the 'MOUSE_HOVER' event
-        if (isDismissHover || isDelayPause) {
+        if (isDismissOnHover || isPauseOnHover) {
             // Create a function expression to reference at a later stage
             mouseHover = function () {
-                if (isDismissHover) {
+                if (isDismissOnHover) {
                     $alert.animate(options.animate_hide, options.animate_hide);
-
-                    // For some bizzare reason, alertClose isn't called by animate()
-                    alertClose();
-                } else if (isDelayPause) {
+                } else if (isPauseOnHover) {
                     isPaused = true;
 
                     // Register a 'MOUSE_LEAVE' event only once
                     $alert.one(Events.MOUSE_LEAVE, function () {
                         isPaused = false;
-                        if (isTimedOut) {
+                        if (hasTimedout) {
                             $alert.animate(options.animate_hide, options.animate_hide);
-
-                            // For some bizzare reason, alertClose isn't called by animate()
-                            alertClose();
                         }
                     });
                 }
@@ -303,6 +291,9 @@
             $alert.on(Events.MOUSE_HOVER, mouseHover);
         }
 
+        // When the alert is closed, unregister registered events
+        $alert.one(Events.ALERT_CLOSED, unregisterEvents);
+
         // Display the alert
         $alert.animate(options.animate_show);
 
@@ -310,7 +301,7 @@
         // otherwise the alert will stay there indefinitely
         if (options.delay > 0) {
             setTimeout(function () {
-                isTimedOut = true;
+                hasTimedout = true;
                 if (!isPaused) {
                     $alert.animate(options.animate_hide, options.animate_hide);
                 }

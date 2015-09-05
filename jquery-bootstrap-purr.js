@@ -149,13 +149,13 @@
         // Set the default value of 'draggable' if not a boolean datatype
         options.draggable = isBoolean(options.draggable) ? options.draggable : true;
 
-        // Create variables to store anonymous functions. These are referenced in the delay closure
+        // Create variables to store anonymous functions
         var mouseDown = null;
         var mouseMove = null;
 
         // If 'draggable' is set to true
         if (options.draggable && !isHover) {
-            // Add moving cursor to signify they can be moved
+            // Add a moving cursor to signify the alert can be moved
             $alert.css('cursor', 'move');
 
             // Object to store the mouse co-ordinates
@@ -226,15 +226,13 @@
             });
         }
 
-        // Set the default value of 'delay' if not a number datatype or greater than zero
-        options.delay = $.isNumeric(options.delay) && options.delay > 0 ? options.delay : 5000;
-
-        // Create a variable to store an anonymous functions. This is referenced in the delay closure
+        // Create variable to store anonymous functions
         var mouseHover = null;
+        var mouseLeave = null;
 
         // Create a function expression to reference at a later stage
         var alertClose = function () {
-            // Unregister events
+            // Tidy up registered events (good housekeeping)
             if (options.draggable && !isHover) {
                 // Tidy up registered events (good housekeeping)
 
@@ -248,6 +246,9 @@
             // Unregister the 'MOUSE_HOVER' event
             $alert.off(Events.MOUSE_HOVER, mouseHover);
 
+            // Unregister the 'MOUSE_LEAVE' event
+            $alert.off(Events.MOUSE_LEAVE, mouseLeave);
+
             $alert.alert('close');
         };
 
@@ -256,13 +257,43 @@
             complete: alertClose
         });
 
-        // If 'allow_dismiss' is true and the type is 'HOVER', then register the 'MOUSE_HOVER' event
-        if (options.allow_dismiss && isHover) {
+        // Set the default value of 'delay' if not a number datatype or greater than zero
+        options.delay = $.isNumeric(options.delay) && options.delay > 0 ? options.delay : 5000;
+
+        // Set the default value of 'draggable' if not a boolean datatype
+        options.delay_pause = isBoolean(options.delay_pause) ? options.delay_pause : false;
+
+        // Store the setTimeout id
+        var timeoutId = null;
+
+        // Store if to dismiss the alert on hover
+        var isDismissHover = options.allow_dismiss && isHover;
+
+        // Store if to pause the dismissal on hover
+        var isDelayPause = options.delay > 0 && options.delay_pause;
+
+        // Create a variable to store an anonymous function
+        var timeoutStart = null;
+
+        // If 'allow_dismiss' is true and the type is 'hover' OR
+        // if delay on hover, then register the 'MOUSE_HOVER' event
+        if (isDismissHover || isDelayPause) {
             // Create a function expression to reference at a later stage
             mouseHover = function () {
-                $alert.animate(options.animate_hide, options.animate_hide);
-                // For some bizzare reason, alertClose isn't called by animate()
-                alertClose();
+                if (isDismissHover) {
+                    $alert.animate(options.animate_hide, options.animate_hide);
+
+                    // For some bizzare reason, alertClose isn't called by animate()
+                    alertClose();
+                } else if (isDelayPause && timeoutId !== null) {
+                    // Clear the previous setTimeout id
+                    clearTimeout(timeoutId);
+
+                    // Register a 'MOUSE_LEAVE' event only once
+                    $alert.one(Events.MOUSE_LEAVE, function () {
+                        timeoutStart();
+                    });
+                }
             };
 
             // When the alert is hovered over. Register the 'MOUSE_HOVER' event
@@ -275,7 +306,13 @@
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if (options.delay > 0) {
-            $alert.delay(options.delay).animate(options.animate_hide, options.animate_hide);
+            timeoutStart = function () {
+                timeoutId = setTimeout(function () {
+                    $alert.animate(options.animate_hide, options.animate_hide);
+                }, options.delay);
+            };
+
+            timeoutStart();
         }
 
         // Return the alert selector
@@ -291,10 +328,13 @@
         // When the primary mouse button is pushed down on the alert
         MOUSE_DOWN: 'mousedown.bootstrap.purr',
 
-        // When the primary mouse button is hovered over on the alert
+        // When the mouse starts hovering over the alert
         MOUSE_HOVER: 'mouseenter.bootstrap.purr',
 
-        // When the mouse is moved whilst the primary mouse button is down. This is only created 'MOUSE_DOWN' is invoked
+        // When the mouse stops hovering over the alert
+        MOUSE_LEAVE: 'mouseleave.boostrap.purr',
+
+        // When the mouse is moved whilst the primary mouse button is down. This is only created when 'MOUSE_DOWN' is invoked
         MOUSE_MOVE: 'mousemove.bootstrap.purr',
 
         // When the primary mouse button is released. This is only called once using .one()
@@ -358,11 +398,13 @@
         // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)
 
+        // Pause the delay when hovering over the alert
+        delay_pause: false, // (true, false)
+
         // Whether the alert should be draggable using the primary mouse button
         draggable: true, // (true, false)
 
         // Spacing between each new alert that is created
         stackup_spacing: 10 // (number)
     };
-
 })(jQuery);

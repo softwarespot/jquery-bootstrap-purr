@@ -27,7 +27,7 @@
     <!--Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="../jquery-bootstrap-purr.min.js"></script>
+    <script src="../jquery-bootstrap-purr.js"></script>
 
     <script>
         $(function() {
@@ -37,7 +37,8 @@
             // Second alert shown after a delay of 1 second
             setTimeout(function() {
                 $.bootstrapPurr('This is a "purr" with the type set to "success"', {
-                    type: 'success'
+                    type: 'success',
+                    delay_pause: true
                 });
             }, 1000);
 

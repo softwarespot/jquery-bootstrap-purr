@@ -106,6 +106,9 @@ The following options below can either be passed via the `options` parameter or 
         // Delay for 'on fade out' in milliseconds
         delay: 5000, // (number)
 
+        // Pause the delay when hovering over the alert
+        delay_pause: false, // (true, false)
+
         // Whether the alert should be draggable using the primary mouse button
         draggable: true, // (true, false)
 

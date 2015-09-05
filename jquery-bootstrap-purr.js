@@ -236,7 +236,6 @@
         var alertClose = function () {
             // Unregister events
             if (options.draggable && !isHover) {
-
                 // Tidy up registered events (good housekeeping)
 
                 // Unregister the 'MOUSE_MOVE' event
@@ -244,7 +243,6 @@
 
                 // Unregister the 'MOUSE_DOWN' event applied to the parent element
                 $alert.off(Events.MOUSE_DOWN, mouseDown);
-
             }
 
             // Unregister the 'MOUSE_HOVER' event
@@ -260,7 +258,6 @@
 
         // If 'allow_dismiss' is true and the type is 'HOVER', then register the 'MOUSE_HOVER' event
         if (options.allow_dismiss && isHover) {
-
             // Create a function expression to reference at a later stage
             mouseHover = function () {
                 $alert.animate(options.animate_hide, options.animate_hide);
@@ -270,7 +267,6 @@
 
             // When the alert is hovered over. Register the 'MOUSE_HOVER' event
             $alert.on(Events.MOUSE_HOVER, mouseHover);
-
         }
 
         // Display the alert
@@ -311,17 +307,12 @@
 
     // Check if value is a boolean datatype
     function isBoolean(value) {
-
         return $.type(value) === 'boolean';
-
     }
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
     function isString(value) {
-
-        return $.type(value) === 'string' && value.trim()
-            .length > 0;
-
+        return $.type(value) === 'string' && value.trim().length > 0;
     }
 
     // Defaults

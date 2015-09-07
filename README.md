@@ -1,6 +1,6 @@
 # jQuery-Bootstrap-Purr - v1.1.1
 
-<p align="center"><img src="https://cloud.githubusercontent.com/assets/5333690/9566952/b2d752fc-4f22-11e5-9e37-aeb7332352c4.png"/></p>
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/5333690/9717379/eec41440-557a-11e5-890c-ea9785cd050c.gif"/></p>
 
 A jQuery plugin for displaying `Bootstrap Alerts` dynamically on your website.
 

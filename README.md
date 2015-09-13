@@ -119,13 +119,13 @@ The following options below can either be passed via the `options` parameter or 
 
 ## Contribute
 
-To contribute to the project, you will first need to install [gulp](gulpjs.com) globally on your system. Once installation has completed, change the working directory to the plugin's location and run the following command:
+To contribute to the project, you will first need to install [gulp](http://gulpjs.com) globally on your system. Once installation has completed, change the working directory to the plugin's location and run the following command:
 
 ```shell
     npm install
 ```
 
-After installation of the local modules, you're ready to start contributing to the project. Before you submit your PR, please don't forget to call `gulp`, which will run against [JSHint](jshint.com) for any errors, but will also minify the plugin.
+After installation of the local modules, you're ready to start contributing to the project. Before you submit your PR, please don't forget to call `gulp`, which will run against [JSHint](http://jshint.com) for any errors, but will also minify the plugin.
 
 ##### Watch
 Call the following command to start 'watching' for any changes to the main JavaScript file(s). This will automatically invoke JSHint and Uglify.

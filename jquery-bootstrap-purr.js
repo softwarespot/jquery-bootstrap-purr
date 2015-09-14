@@ -6,7 +6,7 @@
  * Version: 1.1.1
  */
 ; // jshint ignore:line
-(function ($, undefined) {
+(function (window, $) {
 
     // Plugin Logic
 
@@ -400,4 +400,4 @@
         // Spacing between each new alert that is created
         stackup_spacing: 10 // (number)
     };
-})(jQuery);
+})(this, this.jQuery);

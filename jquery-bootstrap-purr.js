@@ -82,6 +82,7 @@
         $('.bootstrap-purr').each(function () {
             // Cache the jQuery selector
             var $this = $(this);
+            // ES2015 use Number.parseInt
             offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
         });
 

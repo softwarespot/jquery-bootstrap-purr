@@ -199,21 +199,21 @@
                 };
 
                 // Register an event for 'MOUSE_MOVE' on the parent element
-                $parent.on(Events.MOUSE_MOVE, mouseMove);
+                $parent.on(_events.MOUSE_MOVE, mouseMove);
 
                 // Tidy up registered events (good housekeeping)
 
                 // Register an event for 'MOUSE_UP' on the parent element
-                $parent.one(Events.MOUSE_UP, function () {
+                $parent.one(_events.MOUSE_UP, function () {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
                     // Unregister the 'MOUSE_MOVE' event on the parent element
-                    $parent.off(Events.MOUSE_MOVE, mouseMove);
+                    $parent.off(_events.MOUSE_MOVE, mouseMove);
                 });
             };
 
             // Register an event for 'MOUSE_DOWN' on the alert element
-            $alert.on(Events.MOUSE_DOWN, mouseDown);
+            $alert.on(_events.MOUSE_DOWN, mouseDown);
         }
 
         // Create variable to store anonymous functions
@@ -234,17 +234,17 @@
                 // Tidy up registered events (good housekeeping)
 
                 // Unregister the 'MOUSE_MOVE' event applied to the parent element
-                $parent.off(Events.MOUSE_MOVE, mouseMove);
+                $parent.off(_events.MOUSE_MOVE, mouseMove);
 
                 // Unregister the 'MOUSE_DOWN' event applied to the alert element
-                $alert.off(Events.MOUSE_DOWN, mouseDown);
+                $alert.off(_events.MOUSE_DOWN, mouseDown);
             }
 
             // Unregister the 'MOUSE_HOVER' event applied to the alert element
-            $alert.off(Events.MOUSE_HOVER, mouseHover);
+            $alert.off(_events.MOUSE_HOVER, mouseHover);
 
             // Unregister the 'MOUSE_LEAVE' event applied to the alert element
-            $alert.off(Events.MOUSE_LEAVE, mouseLeave);
+            $alert.off(_events.MOUSE_LEAVE, mouseLeave);
         };
 
         // Add the complete function to the 'animate hide' options
@@ -279,7 +279,7 @@
                     isPaused = true;
 
                     // Register a 'MOUSE_LEAVE' event only once
-                    $alert.one(Events.MOUSE_LEAVE, function () {
+                    $alert.one(_events.MOUSE_LEAVE, function () {
                         isPaused = false;
                         if (hasTimedout) {
                             $alert.animate(options.animate_hide, options.animate_hide);
@@ -289,11 +289,11 @@
             };
 
             // When the alert is hovered over. Register the 'MOUSE_HOVER' event
-            $alert.on(Events.MOUSE_HOVER, mouseHover);
+            $alert.on(_events.MOUSE_HOVER, mouseHover);
         }
 
         // When the alert is closed, unregister registered events
-        $alert.one(Events.ALERT_CLOSED, unregisterEvents);
+        $alert.one(_events.ALERT_CLOSED, unregisterEvents);
 
         // Display the alert
         $alert.animate(options.animate_show);
@@ -315,7 +315,7 @@
 
     // Constants
 
-    var Events = {
+    var _events = {
         // Fired by Bootstrap when the alert has finally closed
         ALERT_CLOSED: 'closed.bs.alert',
 

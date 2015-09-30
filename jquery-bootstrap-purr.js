@@ -23,7 +23,7 @@
             .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
-        if (isString(options.type) && /^DANGER|INFO|SUCCESS|WARNING$/i.test(options.type)) {
+        if (isString(options.type) && _regExp.TYPE.test(options.type)) {
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
@@ -31,7 +31,7 @@
         options.allow_dismiss = isBoolean(options.allow_dismiss) ? options.allow_dismiss : true;
 
         // Set the default value of 'allow_dismiss_type' if not defined
-        options.allow_dismiss_type = isString(options.allow_dismiss_type) && /^CLICK|HOVER$/i.test(options.allow_dismiss_type) ?
+        options.allow_dismiss_type = isString(options.allow_dismiss_type) && _regExp.DISMISS_TYPE.test(options.allow_dismiss_type) ?
             options.allow_dismiss_type.toUpperCase() :
             'CLICK';
 
@@ -68,7 +68,7 @@
 
         // Check if the options.offset is correctly formatted
         options.offset.amount = $.isNumeric(options.offset.amount) ? options.offset.amount : 20;
-        options.offset.from = /^TOP|BOTTOM$/i.test(options.offset.from) ? options.offset.from.toLowerCase() : 'top';
+        options.offset.from = _regExp.OFFSET.test(options.offset.from) ? options.offset.from.toLowerCase() : 'top';
 
         // If 'stack spacing' is not numeric, then set the default to 10
         if (!$.isNumeric(options.stackup_spacing)) {
@@ -174,7 +174,7 @@
                 event.preventDefault();
 
                 // If not absolute, fixed or relative, then set the position to relative by default
-                if (!/^(ABSOLUTE|FIXED|RELATIVE)$/i.test($alert.css('position'))) {
+                if (!_regExp.POSITIION.test($alert.css('position'))) {
                     $alert.css('position', 'relative');
                 }
 
@@ -333,6 +333,14 @@
 
         // When the primary mouse button is released. This is only called once using .one()
         MOUSE_UP: 'mouseup.bootstrap.purr'
+    };
+
+    // Regular expressions
+    var _regExp = {
+        DISMISS_TYPE: /^(?:CLICK|HOVER)$/i,
+        OFFSET: /^(?:TOP|BOTTOM)$/i,
+        POSITION: /^(?:ABSOLUTE|FIXED|RELATIVE)$/i,
+        TYPE: /^(?:DANGER|INFO|SUCCESS|WARNING)$/i
     };
 
     // Fields

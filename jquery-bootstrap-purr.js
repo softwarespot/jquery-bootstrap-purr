@@ -79,7 +79,7 @@
         var offsetTotal = options.offset.amount;
 
         // For each element with the class name of '.bootstrap-purr', calculate the total offset
-        $('.bootstrap-purr').each(function () {
+        $('.bootstrap-purr').each(function currentPurrs() {
             // Cache the jQuery selector
             var $this = $(this);
             // ES2015 use Number.parseInt
@@ -163,18 +163,18 @@
                 x: 0,
                 y: 0,
                 // Update function
-                update: function (event) {
+                update: function update(event) {
                     this.x = event.pageX;
                     this.y = event.pageY;
                 }
             };
 
             // Create a function expression to reference at a later stage
-            mouseDown = function (event) {
+            mouseDown = function mouseDown(event) {
                 event.preventDefault();
 
                 // If not absolute, fixed or relative, then set the position to relative by default
-                if (!_regExp.POSITIION.test($alert.css('position'))) {
+                if (!_regExp.POSITION.test($alert.css('position'))) {
                     $alert.css('position', 'relative');
                 }
 
@@ -182,7 +182,7 @@
                 mouse.update(event);
 
                 // Create a function expression to reference at a later stage
-                mouseMove = function (event) {
+                mouseMove = function mouseMove(event) {
                     event.preventDefault();
 
                     // Get the offset object relative to the document
@@ -204,7 +204,7 @@
                 // Tidy up registered events (good housekeeping)
 
                 // Register an event for 'MOUSE_UP' on the parent element
-                $parent.one(_events.MOUSE_UP, function () {
+                $parent.one(_events.MOUSE_UP, function mouseUpOne() {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
                     // Unregister the 'MOUSE_MOVE' event on the parent element
@@ -222,13 +222,13 @@
 
         // Create a function expression to reference at a later stage
         // This close the alert
-        var alertClose = function () {
+        var alertClose = function alertClose() {
             $alert.alert('close');
         };
 
         // Create a function expression to reference at a later stage
         // Unregister events
-        var unregisterEvents = function () {
+        var unregisterEvents = function unregisterEvents() {
             // Tidy up registered events (good housekeeping)
             if (options.draggable && !isHover) {
                 // Tidy up registered events (good housekeeping)
@@ -266,22 +266,22 @@
 
         // Store whether or not the pause alert has taken place or the timeout has been cancelled
         var isPaused = false;
-        var hasTimedout = false;
+        var hasTimedOut = false;
 
         // If 'allow_dismiss' is true and the type is 'hover' OR
         // if delay on hover, then register the 'MOUSE_HOVER' event
         if (isDismissOnHover || isPauseOnHover) {
             // Create a function expression to reference at a later stage
-            mouseHover = function () {
+            mouseHover = function mouseHover() {
                 if (isDismissOnHover) {
                     $alert.animate(options.animate_hide, options.animate_hide);
                 } else if (isPauseOnHover) {
                     isPaused = true;
 
                     // Register a 'MOUSE_LEAVE' event only once
-                    $alert.one(_events.MOUSE_LEAVE, function () {
+                    $alert.one(_events.MOUSE_LEAVE, function mouseLeaveOne() {
                         isPaused = false;
-                        if (hasTimedout) {
+                        if (hasTimedOut) {
                             $alert.animate(options.animate_hide, options.animate_hide);
                         }
                     });
@@ -301,8 +301,8 @@
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
         if (options.delay > 0) {
-            setTimeout(function () {
-                hasTimedout = true;
+            window.setTimeout(function onTimeout() {
+                hasTimedOut = true;
                 if (!isPaused) {
                     $alert.animate(options.animate_hide, options.animate_hide);
                 }

@@ -10,7 +10,7 @@
 
     // Plugin Logic
 
-    $.bootstrapPurr = function (message, options) {
+    $.bootstrapPurr = function bootstrapPurr(message, options) {
         // Set our options from the defaults, overriding with the
         // parameter we pass into this function
         options = $.extend({}, $.bootstrapPurr.options, options);

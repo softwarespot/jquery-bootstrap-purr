@@ -17,6 +17,7 @@
 
         // Create a temporary div element
         var $alert = $('<div/>')
+
             // Add the 'alert' and 'bootstrap-purr' classes for distinguishing
             // other Bootstrap alerts
             .addClass('alert bootstrap-purr')
@@ -82,6 +83,7 @@
         $('.bootstrap-purr').each(function currentPurrs() {
             // Cache the jQuery selector
             var $this = $(this);
+
             // ES2015 use Number.parseInt
             offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
         });
@@ -133,7 +135,7 @@
         switch (options.align) {
             case 'CENTER':
                 $alert.css({
-                    'left': '50%',
+                    left: '50%',
                     'margin-left': '-' + ($alert.outerWidth() / 2) + 'px'
                 });
                 break;
@@ -162,6 +164,7 @@
             var mouse = {
                 x: 0,
                 y: 0,
+
                 // Update function
                 update: function update(event) {
                     this.x = event.pageX;

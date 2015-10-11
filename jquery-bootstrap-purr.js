@@ -33,15 +33,15 @@
             .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
-        if (isString(options.type) && _regExp.TYPE.test(options.type)) {
+        if (_isString(options.type) && _regExp.TYPE.test(options.type)) {
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
         // Set the default value of 'allow_dismiss' if not a boolean datatype
-        options.allowDismiss = isBoolean(options.allowDismiss) ? options.allowDismiss : true;
+        options.allowDismiss = _isBoolean(options.allowDismiss) ? options.allowDismiss : true;
 
         // Set the default value of 'allow_dismiss_type' if not defined
-        options.allowDismissType = isString(options.allowDismissType) && _regExp.DISMISS_TYPE.test(options.allowDismissType) ?
+        options.allowDismissType = _isString(options.allowDismissType) && _regExp.DISMISS_TYPE.test(options.allowDismissType) ?
             options.allowDismissType.toUpperCase() :
             'CLICK';
 
@@ -94,11 +94,11 @@
             var $this = $(this);
 
             // ES2015 use Number.parseInt
-            offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackupSpacing);
+            offsetTotal = Math.max(offsetTotal, window.parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackupSpacing);
         });
 
         // Set the default 'element' to 'body', if it's an invalid string
-        if (!isString(options.element)) {
+        if (!_isString(options.element)) {
             options.element = 'body';
         }
 
@@ -136,7 +136,7 @@
         $parent.append($alert);
 
         // Convert to uppercase for case-insensitive matching
-        if (isString(options.align)) {
+        if (_isString(options.align)) {
             options.align = options.align.toUpperCase();
         }
 
@@ -158,7 +158,7 @@
         }
 
         // Set the default value of 'draggable' if not a boolean datatype
-        options.draggable = isBoolean(options.draggable) ? options.draggable : true;
+        options.draggable = _isBoolean(options.draggable) ? options.draggable : true;
 
         // Create variables to store anonymous functions
         var mouseDown = null;
@@ -268,7 +268,7 @@
         options.delay = $.isNumeric(options.delay) && options.delay >= 0 ? options.delay : 5000;
 
         // Set the default value of 'draggable' if not a boolean datatype
-        options.delayPause = isBoolean(options.delayPause) ? options.delayPause : false;
+        options.delayPause = _isBoolean(options.delayPause) ? options.delayPause : false;
 
         // Store if to dismiss the alert on hover
         var isDismissOnHover = options.allowDismiss && isHover;
@@ -360,12 +360,12 @@
     // Methods (Private)
 
     // Check if value is a boolean datatype
-    function isBoolean(value) {
+    function _isBoolean(value) {
         return $.type(value) === 'boolean';
     }
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
-    function isString(value) {
+    function _isString(value) {
         return $.type(value) === 'string' && value.trim().length > 0;
     }
 

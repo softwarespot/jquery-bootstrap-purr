@@ -36,7 +36,7 @@ gulp.task('jshint', function () {
 });
 
 // Uglify aka minify the main file
-gulp.task('uglify', ['clean'], function () {
+gulp.task('uglify', function () {
     return gulp.src('./' + Assets.main)
         .pipe(uglify(uglifySettings))
         .pipe(rename(Assets.minified))

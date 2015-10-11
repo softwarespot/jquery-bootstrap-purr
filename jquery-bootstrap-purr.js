@@ -15,12 +15,21 @@
         // parameter we pass into this function
         options = $.extend({}, $.bootstrapPurr.options, options);
 
+        /* jscs: disable */
+        options.allowDismiss = options.allow_dismiss;
+        options.allowDismissType = options.allow_dismiss_type;
+        options.animateShow = options.animate_show;
+        options.animateHide = options.animate_hide;
+        options.delayPause = options.delay_pause;
+        options.stackupSpacing = options.stackup_pacing;
+        /* jscs: enable */
+
         // Create a temporary div element
         var $alert = $('<div/>')
 
-            // Add the 'alert' and 'bootstrap-purr' classes for distinguishing
-            // other Bootstrap alerts
-            .addClass('alert bootstrap-purr')
+        // Add the 'alert' and 'bootstrap-purr' classes for distinguishing
+        // other Bootstrap alerts
+        .addClass('alert bootstrap-purr')
             .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
@@ -29,18 +38,18 @@
         }
 
         // Set the default value of 'allow_dismiss' if not a boolean datatype
-        options.allow_dismiss = isBoolean(options.allow_dismiss) ? options.allow_dismiss : true;
+        options.allowDismiss = isBoolean(options.allowDismiss) ? options.allowDismiss : true;
 
         // Set the default value of 'allow_dismiss_type' if not defined
-        options.allow_dismiss_type = isString(options.allow_dismiss_type) && _regExp.DISMISS_TYPE.test(options.allow_dismiss_type) ?
-            options.allow_dismiss_type.toUpperCase() :
+        options.allowDismissType = isString(options.allowDismissType) && _regExp.DISMISS_TYPE.test(options.allowDismissType) ?
+            options.allowDismissType.toUpperCase() :
             'CLICK';
 
-        var isClick = options.allow_dismiss_type === 'CLICK';
-        var isHover = options.allow_dismiss_type === 'HOVER';
+        var isClick = options.allowDismissType === 'CLICK';
+        var isHover = options.allowDismissType === 'HOVER';
 
         // If 'allow dismissal' is set to true, then add the relevant class and append a button element
-        if (options.allow_dismiss && isClick) {
+        if (options.allowDismiss && isClick) {
             // Close button
             var $button = $('<button/>')
                 .attr('type', 'button')
@@ -72,8 +81,8 @@
         options.offset.from = _regExp.OFFSET.test(options.offset.from) ? options.offset.from.toLowerCase() : 'top';
 
         // If 'stack spacing' is not numeric, then set the default to 10
-        if (!$.isNumeric(options.stackup_spacing)) {
-            options.stackup_spacing = 10;
+        if (!$.isNumeric(options.stackupSpacing)) {
+            options.stackupSpacing = 10;
         }
 
         // Store the offset amount for use outside the forEach()
@@ -85,7 +94,7 @@
             var $this = $(this);
 
             // ES2015 use Number.parseInt
-            offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackup_spacing);
+            offsetTotal = Math.max(offsetTotal, parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackupSpacing);
         });
 
         // Set the default 'element' to 'body', if it's an invalid string
@@ -251,7 +260,7 @@
         };
 
         // Add the complete function to the 'animate hide' options
-        $.extend(options.animate_hide, {
+        $.extend(options.animateHide, {
             complete: alertClose
         });
 
@@ -259,13 +268,13 @@
         options.delay = $.isNumeric(options.delay) && options.delay >= 0 ? options.delay : 5000;
 
         // Set the default value of 'draggable' if not a boolean datatype
-        options.delay_pause = isBoolean(options.delay_pause) ? options.delay_pause : false;
+        options.delayPause = isBoolean(options.delayPause) ? options.delayPause : false;
 
         // Store if to dismiss the alert on hover
-        var isDismissOnHover = options.allow_dismiss && isHover;
+        var isDismissOnHover = options.allowDismiss && isHover;
 
         // Store if to pause the dismissal on hover
-        var isPauseOnHover = options.delay > 0 && options.delay_pause;
+        var isPauseOnHover = options.delay > 0 && options.delayPause;
 
         // Store whether or not the pause alert has taken place or the timeout has been cancelled
         var isPaused = false;
@@ -277,7 +286,7 @@
             // Create a function expression to reference at a later stage
             mouseHover = function mouseHover() {
                 if (isDismissOnHover) {
-                    $alert.animate(options.animate_hide, options.animate_hide);
+                    $alert.animate(options.animateHide, options.animateHide);
                 } else if (isPauseOnHover) {
                     isPaused = true;
 
@@ -285,7 +294,7 @@
                     $alert.one(_events.MOUSE_LEAVE, function mouseLeaveOne() {
                         isPaused = false;
                         if (hasTimedOut) {
-                            $alert.animate(options.animate_hide, options.animate_hide);
+                            $alert.animate(options.animateHide, options.animateHide);
                         }
                     });
                 }
@@ -299,7 +308,7 @@
         $alert.one(_events.ALERT_CLOSED, unregisterEvents);
 
         // Display the alert
-        $alert.animate(options.animate_show);
+        $alert.animate(options.animateShow);
 
         // Create a delay on fade out if greater than zero,
         // otherwise the alert will stay there indefinitely
@@ -307,7 +316,7 @@
             window.setTimeout(function onTimeout() {
                 hasTimedOut = true;
                 if (!isPaused) {
-                    $alert.animate(options.animate_hide, options.animate_hide);
+                    $alert.animate(options.animateHide, options.animateHide);
                 }
             }, options.delay);
         }
@@ -362,6 +371,7 @@
 
     // Defaults
 
+    /* jscs: disable */
     $.bootstrapPurr.options = {
         // Default parent element to append the alert to
         element: 'body',
@@ -412,4 +422,5 @@
         // Spacing between each new alert that is created
         stackup_spacing: 10 // (number)
     };
+    /* jscs: enable */
 })(this, this.jQuery);

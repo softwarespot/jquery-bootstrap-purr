@@ -27,9 +27,9 @@
         // Create a temporary div element
         var $alert = $('<div/>')
 
-        // Add the 'alert' and 'bootstrap-purr' classes for distinguishing
-        // other Bootstrap alerts
-        .addClass('alert bootstrap-purr')
+            // Add the 'alert' and 'bootstrap-purr' classes for distinguishing
+            // other Bootstrap alerts
+            .addClass('alert bootstrap-purr')
             .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
@@ -94,7 +94,7 @@
             var $this = $(this);
 
             // ES2015 use Number.parseInt
-            offsetTotal = Math.max(offsetTotal, window.parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackupSpacing);
+            offsetTotal = window.Math.max(offsetTotal, window.parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackupSpacing);
         });
 
         // Set the default 'element' to 'body', if it's an invalid string

@@ -6,7 +6,7 @@
  * Version: 1.1.1
  */
 ; // jshint ignore:line
-(function (window, $) {
+(function jQueryBootstrapPurrNamespace(window, $) {
 
     // Plugin Logic
 
@@ -108,7 +108,7 @@
             margin: 0,
             position: (options.element === 'body' ? 'fixed' : 'absolute'),
             width: 'auto',
-            'z-index': '9999'
+            'z-index': '9999',
         };
 
         // Set the css property i.e. top or bottom, with the offset total
@@ -145,7 +145,7 @@
             case 'CENTER':
                 $alert.css({
                     left: '50%',
-                    'margin-left': '-' + ($alert.outerWidth() / 2) + 'px'
+                    'margin-left': '-' + ($alert.outerWidth() / 2) + 'px',
                 });
                 break;
 
@@ -178,7 +178,7 @@
                 update: function update(event) {
                     this.x = event.pageX;
                     this.y = event.pageY;
-                }
+                },
             };
 
             // Create a function expression to reference at a later stage
@@ -203,7 +203,7 @@
                     // Set the offset of the alert element
                     $alert.offset({
                         left: (offset.left + (event.pageX - mouse.x)),
-                        top: (offset.top + (event.pageY - mouse.y))
+                        top: (offset.top + (event.pageY - mouse.y)),
                     });
 
                     // Update the mouse coordinates
@@ -261,7 +261,7 @@
 
         // Add the complete function to the 'animate hide' options
         $.extend(options.animateHide, {
-            complete: alertClose
+            complete: alertClose,
         });
 
         // Set the default value of 'delay' if not a number datatype or greater than zero
@@ -344,7 +344,7 @@
         MOUSE_MOVE: 'mousemove.bootstrap.purr',
 
         // When the primary mouse button is released. This is only called once using .one()
-        MOUSE_UP: 'mouseup.bootstrap.purr'
+        MOUSE_UP: 'mouseup.bootstrap.purr',
     };
 
     // Regular expressions
@@ -352,7 +352,7 @@
         DISMISS_TYPE: /^(?:CLICK|HOVER)$/i,
         OFFSET: /^(?:TOP|BOTTOM)$/i,
         POSITION: /^(?:ABSOLUTE|FIXED|RELATIVE)$/i,
-        TYPE: /^(?:DANGER|INFO|SUCCESS|WARNING)$/i
+        TYPE: /^(?:DANGER|INFO|SUCCESS|WARNING)$/i,
     };
 
     // Fields
@@ -401,13 +401,13 @@
         // Options to pass to the .animate() function when displaying the an alert
         animate_show: {
             opacity: 'show', // See the animate() function in jQuery for more details
-            duration: 'fast'
+            duration: 'fast',
         },
 
         // Options to pass to the .animate() function when closing the an alert
         animate_hide: {
             opacity: 'hide', // See the animate() function in jQuery for more details
-            duration: 'slow'
+            duration: 'slow',
         },
 
         // Delay for 'on fade out' in milliseconds
@@ -423,4 +423,4 @@
         stackup_spacing: 10 // (number)
     };
     /* jscs: enable */
-})(this, this.jQuery);
+})(window, window.jQuery);

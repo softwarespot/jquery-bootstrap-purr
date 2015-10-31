@@ -35,41 +35,41 @@
             $.bootstrapPurr('This is a simple "purr" which is draggable with the primary mouse. Drag me!');
 
             // Second alert shown after a delay of 1 second
-            setTimeout(function() {
+            window.setTimeout(function() {
                 $.bootstrapPurr('This is a "purr" with the type set to "success"', {
                     type: 'success',
-                    delay_pause: true
+                    delayPause: true
                 });
             }, 1000);
 
             // Third alert shown after a delay of 2 seconds
-            setTimeout(function() {
+            window.setTimeout(function() {
                 $.bootstrapPurr('This is a "purr" with the multiple options that have been set', {
                     type: 'danger',
                     align: 'center',
                     width: 'auto',
-                    allow_dismiss: false
+                    allowDismiss: false
                 });
             }, 2000);
 
             // Fourth alert shown after a delay of 3 seconds
-            setTimeout(function() {
+            window.setTimeout(function() {
                 $.bootstrapPurr('This is another "purr" that will display until manually closed', {
                     type: 'info',
                     align: 'left',
                     delay: 0,
-                    stackup_spacing: 30
+                    stackupSpacing: 30
                 });
             }, 3000);
 
             // Fifth alert shown after a delay of 4 seconds
-            setTimeout(function() {
+            window.setTimeout(function() {
                 $.bootstrapPurr('This is a "purr" that can be dismissed on hover', {
                     type: 'danger',
                     align: 'center',
                     width: 'auto',
-                    allow_dismiss: true,
-                    allow_dismiss_type: 'hover'
+                    allowDismiss: true,
+                    allowDismissType: 'hover'
                 });
             }, 4000);
 

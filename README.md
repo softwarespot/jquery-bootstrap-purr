@@ -85,20 +85,20 @@ The following options below can either be passed via the `options` parameter or 
         width: 250, // (number, 'auto')
 
         // If true then a cross will be displayed in the top right hand corner of the alert
-        allow_dismiss: true, // (true, false)
+        allowDismiss: true, // (true, false)
 
-        // Type of dismissal when 'allow_dismiss' is set to true. If the type is 'hover' and 'draggable' is set to true,
+        // Type of dismissal when 'allowDismiss' is set to true. If the type is 'hover' and 'draggable' is set to true,
         // then 'draggable' will be ignored
-        allow_dismiss_type: 'click', // ('click', 'hover')
+        allowDismissType: 'click', // ('click', 'hover')
 
         // Options to pass to the .animate() function when displaying the an alert
-        animate_show: {
+        animateShow: {
             opacity: 'show', // See the animate() function in jQuery for more details
             duration: 'fast'
         },
 
         // Options to pass to the .animate() function when closing the an alert
-        animate_hide: {
+        animateHide: {
             opacity: 'hide', // See the animate() function in jQuery for more details
             duration: 'slow'
         },
@@ -107,13 +107,13 @@ The following options below can either be passed via the `options` parameter or 
         delay: 5000, // (number)
 
         // Pause the delay when hovering over the alert
-        delay_pause: false, // (true, false)
+        delayPause: false, // (true, false)
 
         // Whether the alert should be draggable using the primary mouse button
         draggable: true, // (true, false)
 
         // Spacing between each new alert that is created
-        stackup_spacing: 10 // (number)
+        stackupSpacing: 10 // (number)
     }
 ```
 

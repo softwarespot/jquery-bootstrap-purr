@@ -16,12 +16,14 @@
         options = $.extend({}, $.bootstrapPurr.options, options);
 
         /* jscs: disable */
-        options.allowDismiss = options.allow_dismiss;
-        options.allowDismissType = options.allow_dismiss_type;
-        options.animateShow = options.animate_show;
-        options.animateHide = options.animate_hide;
-        options.delayPause = options.delay_pause;
-        options.stackupSpacing = options.stackup_pacing;
+
+        // jscs only workaround for checking old style properties
+        options.allowDismiss = options.allow_dismiss || options.allowDismiss;
+        options.allowDismissType = options.allow_dismiss_type || options.allowDismissType;
+        options.animateShow = options.animate_show || options.animateShow;
+        options.animateHide = options.animate_hide || options.animateHide;
+        options.delayPause = options.delay_pause || options.delayPause;
+        options.stackupSpacing = options.stackup_pacing || options.stackupSpacing;
         /* jscs: enable */
 
         // Create a temporary div element
@@ -280,7 +282,7 @@
         var isPaused = false;
         var hasTimedOut = false;
 
-        // If 'allow_dismiss' is true and the type is 'hover' OR
+        // If 'allowDismiss' is true and the type is 'hover' OR
         // if delay on hover, then register the 'MOUSE_HOVER' event
         if (isDismissOnHover || isPauseOnHover) {
             // Create a function expression to reference at a later stage
@@ -392,20 +394,20 @@
         width: 250, // (number, 'auto')
 
         // If true then a cross will be displayed in the top right hand corner of the alert
-        allow_dismiss: true, // (true, false)
+        allowDismiss: true, // (true, false)
 
-        // Type of dismissal when 'allow_dismiss' is set to true. If the type is 'hover' and 'draggable' is set to true,
+        // Type of dismissal when 'allowDismiss' is set to true. If the type is 'hover' and 'draggable' is set to true,
         // then 'draggable' will be ignored
-        allow_dismiss_type: 'click', // ('click', 'hover')
+        allowDismissType: 'click', // ('click', 'hover')
 
         // Options to pass to the .animate() function when displaying the an alert
-        animate_show: {
+        animateShow: {
             opacity: 'show', // See the animate() function in jQuery for more details
             duration: 'fast',
         },
 
         // Options to pass to the .animate() function when closing the an alert
-        animate_hide: {
+        animateHide: {
             opacity: 'hide', // See the animate() function in jQuery for more details
             duration: 'slow',
         },
@@ -414,13 +416,13 @@
         delay: 5000, // (number)
 
         // Pause the delay when hovering over the alert
-        delay_pause: false, // (true, false)
+        delayPause: false, // (true, false)
 
         // Whether the alert should be draggable using the primary mouse button
         draggable: true, // (true, false)
 
         // Spacing between each new alert that is created
-        stackup_spacing: 10 // (number)
+        stackupSpacing: 10 // (number)
     };
     /* jscs: enable */
 })(window, window.jQuery);

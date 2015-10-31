@@ -3,7 +3,7 @@
  * https://github.com/softwarespot/jquery-bootstrap-purr
  * Author: softwarespot
  * Licensed under the MIT license
- * Version: 1.1.1
+ * Version: 1.1.2
  */
 ; // jshint ignore:line
 (function jQueryBootstrapPurrNamespace(window, $) {

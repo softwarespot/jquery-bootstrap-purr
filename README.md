@@ -1,4 +1,4 @@
-# jQuery-Bootstrap-Purr - v1.1.1
+# jQuery-Bootstrap-Purr - v1.1.2
 
 <p align="center"><img src="https://cloud.githubusercontent.com/assets/5333690/9717379/eec41440-557a-11e5-890c-ea9785cd050c.gif"/></p>
 

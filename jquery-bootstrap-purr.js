@@ -35,7 +35,7 @@
             .attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
-        if (_isString(options.type) && _regExp.TYPE.test(options.type)) {
+        if (_isString(options.type) && _reType.test(options.type)) {
             $alert.addClass('alert-' + options.type.toLowerCase());
         }
 
@@ -43,7 +43,7 @@
         options.allowDismiss = _isBoolean(options.allowDismiss) ? options.allowDismiss : true;
 
         // Set the default value of 'allow_dismiss_type' if not defined
-        options.allowDismissType = _isString(options.allowDismissType) && _regExp.DISMISS_TYPE.test(options.allowDismissType) ?
+        options.allowDismissType = _isString(options.allowDismissType) && _reDismissType.test(options.allowDismissType) ?
             options.allowDismissType.toUpperCase() :
             'CLICK';
 
@@ -80,7 +80,7 @@
 
         // Check if the options.offset is correctly formatted
         options.offset.amount = $.isNumeric(options.offset.amount) ? options.offset.amount : 20;
-        options.offset.from = _regExp.OFFSET.test(options.offset.from) ? options.offset.from.toLowerCase() : 'top';
+        options.offset.from = _reOffset.test(options.offset.from) ? options.offset.from.toLowerCase() : 'top';
 
         // If 'stack spacing' is not numeric, then set the default to 10
         if (!$.isNumeric(options.stackupSpacing)) {
@@ -188,7 +188,7 @@
                 event.preventDefault();
 
                 // If not absolute, fixed or relative, then set the position to relative by default
-                if (!_regExp.POSITION.test($alert.css('position'))) {
+                if (!_rePosition.test($alert.css('position'))) {
                     $alert.css('position', 'relative');
                 }
 
@@ -213,21 +213,21 @@
                 };
 
                 // Register an event for 'MOUSE_MOVE' on the parent element
-                $parent.on(_events.MOUSE_MOVE, mouseMove);
+                $parent.on(_eventsMouseMove, mouseMove);
 
                 // Tidy up registered events (good housekeeping)
 
                 // Register an event for 'MOUSE_UP' on the parent element
-                $parent.one(_events.MOUSE_UP, function mouseUpOne() {
+                $parent.one(_eventsMouseUp, function mouseUpOne() {
                     // 'MOUSE_UP' will automatically be unregistered, due to using .one()
 
                     // Unregister the 'MOUSE_MOVE' event on the parent element
-                    $parent.off(_events.MOUSE_MOVE, mouseMove);
+                    $parent.off(_eventsMouseMove, mouseMove);
                 });
             };
 
             // Register an event for 'MOUSE_DOWN' on the alert element
-            $alert.on(_events.MOUSE_DOWN, mouseDown);
+            $alert.on(_eventsMouseDown, mouseDown);
         }
 
         // Create variable to store anonymous functions
@@ -248,17 +248,17 @@
                 // Tidy up registered events (good housekeeping)
 
                 // Unregister the 'MOUSE_MOVE' event applied to the parent element
-                $parent.off(_events.MOUSE_MOVE, mouseMove);
+                $parent.off(_eventsMouseMove, mouseMove);
 
                 // Unregister the 'MOUSE_DOWN' event applied to the alert element
-                $alert.off(_events.MOUSE_DOWN, mouseDown);
+                $alert.off(_eventsMouseDown, mouseDown);
             }
 
             // Unregister the 'MOUSE_HOVER' event applied to the alert element
-            $alert.off(_events.MOUSE_HOVER, mouseHover);
+            $alert.off(_eventsMouseHover, mouseHover);
 
             // Unregister the 'MOUSE_LEAVE' event applied to the alert element
-            $alert.off(_events.MOUSE_LEAVE, mouseLeave);
+            $alert.off(_eventsMouseLeave, mouseLeave);
         };
 
         // Add the complete function to the 'animate hide' options
@@ -293,7 +293,7 @@
                     isPaused = true;
 
                     // Register a 'MOUSE_LEAVE' event only once
-                    $alert.one(_events.MOUSE_LEAVE, function mouseLeaveOne() {
+                    $alert.one(_eventsMouseLeave, function mouseLeaveOne() {
                         isPaused = false;
                         if (hasTimedOut) {
                             $alert.animate(options.animateHide, options.animateHide);
@@ -303,11 +303,11 @@
             };
 
             // When the alert is hovered over. Register the 'MOUSE_HOVER' event
-            $alert.on(_events.MOUSE_HOVER, mouseHover);
+            $alert.on(_eventsMouseHover, mouseHover);
         }
 
         // When the alert is closed, unregister registered events
-        $alert.one(_events.ALERT_CLOSED, unregisterEvents);
+        $alert.one(_eventsAlertClose, unregisterEvents);
 
         // Display the alert
         $alert.animate(options.animateShow);
@@ -329,33 +329,29 @@
 
     // Constants
 
-    var _events = {
-        // Fired by Bootstrap when the alert has finally closed
-        ALERT_CLOSED: 'closed.bs.alert',
+    // Fired by Bootstrap when the alert has finally closed
+    var _eventsAlertClose = 'closed.bs.alert';
 
-        // When the primary mouse button is pushed down on the alert
-        MOUSE_DOWN: 'mousedown.bootstrap.purr',
+    // When the primary mouse button is pushed down on the alert
+    var _eventsMouseDown = 'mousedown.bootstrap.purr';
 
-        // When the mouse starts hovering over the alert
-        MOUSE_HOVER: 'mouseenter.bootstrap.purr',
+    // When the mouse starts hovering over the alert
+    var _eventsMouseHover = 'mouseenter.bootstrap.purr';
 
-        // When the mouse stops hovering over the alert
-        MOUSE_LEAVE: 'mouseleave.boostrap.purr',
+    // When the mouse stops hovering over the alert
+    var _eventsMouseLeave = 'mouseleave.boostrap.purr';
 
-        // When the mouse is moved whilst the primary mouse button is down. This is only created when 'MOUSE_DOWN' is invoked
-        MOUSE_MOVE: 'mousemove.bootstrap.purr',
+    // When the mouse is moved whilst the primary mouse button is down. This is only created when 'MOUSE_DOWN' is invoked
+    var _eventsMouseMove = 'mousemove.bootstrap.purr';
 
-        // When the primary mouse button is released. This is only called once using .one()
-        MOUSE_UP: 'mouseup.bootstrap.purr',
-    };
+    // When the primary mouse button is released. This is only called once using .one()
+    var _eventsMouseUp = 'mouseup.bootstrap.purr';
 
     // Regular expressions
-    var _regExp = {
-        DISMISS_TYPE: /^(?:CLICK|HOVER)$/i,
-        OFFSET: /^(?:TOP|BOTTOM)$/i,
-        POSITION: /^(?:ABSOLUTE|FIXED|RELATIVE)$/i,
-        TYPE: /^(?:DANGER|INFO|SUCCESS|WARNING)$/i,
-    };
+    var _reDismissType = /^(?:CLICK|HOVER)$/i;
+    var _reOffset = /^(?:TOP|BOTTOM)$/i;
+    var _rePosition = /^(?:ABSOLUTE|FIXED|RELATIVE)$/i;
+    var _reType = /^(?:DANGER|INFO|SUCCESS|WARNING)$/i;
 
     // Fields
 

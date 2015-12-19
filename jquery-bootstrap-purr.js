@@ -7,6 +7,10 @@
  */
 ; // jshint ignore:line
 (function jQueryBootstrapPurrNamespace(window, $) {
+    // Check if a value is undefined
+    function _isNil(value) {
+        return value === null || value === undefined;
+    }
 
     // Check if jQuery exists
     if (_isNil($)) {
@@ -370,11 +374,6 @@
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
     function _isString(value) {
         return $.type(value) === 'string' && value.trim().length > 0;
-    }
-
-    // Check if a value is undefined
-    function _isNil(value) {
-        return value === null || value === undefined;
     }
 
     // Defaults

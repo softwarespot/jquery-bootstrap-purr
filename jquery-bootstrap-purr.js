@@ -373,7 +373,7 @@
 
     // Check if a value is a string datatype with a length greater than zero when whitespace is stripped
     function _isString(value) {
-        return $.type(value) === 'string' && value.trim().length > 0;
+        return $.type(value) === 'string' && $.trim(value).length > 0;
     }
 
     // Defaults

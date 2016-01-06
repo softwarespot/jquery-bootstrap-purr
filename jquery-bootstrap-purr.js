@@ -105,7 +105,7 @@
             var $this = $(this);
 
             // ES2015 use Number.parseInt
-            offsetTotal = window.Math.max(offsetTotal, window.parseInt($this.css(options.offset.from)) + $this.outerHeight() + options.stackupSpacing);
+            offsetTotal = window.Math.max(offsetTotal, window.parseInt($this.css(options.offset.from), 10) + $this.outerHeight() + options.stackupSpacing);
         });
 
         // Set the default 'element' to 'body', if it's an invalid string

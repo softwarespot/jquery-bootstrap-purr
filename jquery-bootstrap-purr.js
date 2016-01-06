@@ -389,7 +389,7 @@
         // Alert offset
         offset: {
             amount: 20, // (number)
-            from: 'top' // ('top', 'bottom')
+            from: 'top', // ('top', 'bottom')
         },
 
         // Alignment relative to the parent element
@@ -427,7 +427,7 @@
         draggable: true, // (true, false)
 
         // Spacing between each new alert that is created
-        stackupSpacing: 10 // (number)
+        stackupSpacing: 10, // (number)
     };
     /* jscs: enable */
 })(window, window.jQuery);

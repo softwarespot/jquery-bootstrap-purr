@@ -7,7 +7,7 @@
  */
 ; // jshint ignore:line
 (function jQueryBootstrapPurrNamespace(window, $) {
-    // Check if a value is undefined
+    // Check if a value is null or undefined
     function _isNil(value) {
         return value === null || value === undefined;
     }

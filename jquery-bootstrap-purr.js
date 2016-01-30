@@ -5,7 +5,6 @@
  * Licensed under the MIT license
  * Version: 1.1.2
  */
-; // jshint ignore:line
 (function jQueryBootstrapPurrNamespace(window, $) {
     // Check if a value is null or undefined
     function _isNil(value) {
@@ -24,8 +23,6 @@
         // parameter we pass into this function
         options = $.extend({}, $.bootstrapPurr.options, options);
 
-        /* jscs: disable */
-
         // jscs only workaround for checking old style properties
         options.allowDismiss = options.allow_dismiss || options.allowDismiss;
         options.allowDismissType = options.allow_dismiss_type || options.allowDismissType;
@@ -33,7 +30,6 @@
         options.animateHide = options.animate_hide || options.animateHide;
         options.delayPause = options.delay_pause || options.delayPause;
         options.stackupSpacing = options.stackup_pacing || options.stackupSpacing;
-        /* jscs: enable */
 
         // Create a temporary div element
         var $alert = $('<div/>')
@@ -378,7 +374,6 @@
 
     // Defaults
 
-    /* jscs: disable */
     $.bootstrapPurr.options = {
         // Default parent element to append the alert to
         element: 'body',
@@ -429,5 +424,4 @@
         // Spacing between each new alert that is created
         stackupSpacing: 10, // (number)
     };
-    /* jscs: enable */
-})(window, window.jQuery);
+}(window, window.jQuery));

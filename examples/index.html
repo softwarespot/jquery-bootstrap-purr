@@ -25,17 +25,17 @@
 <body>
 
     <!--Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="../jquery-bootstrap-purr.min.js"></script>
 
     <script>
-        $(function() {
+        $(function domReady($) {
             // First alert
             $.bootstrapPurr('This is a simple "purr" which is draggable with the primary mouse. Drag me!');
 
             // Second alert shown after a delay of 1 second
-            window.setTimeout(function() {
+            window.setTimeout(function setTimeout() {
                 $.bootstrapPurr('This is a "purr" with the type set to "success"', {
                     type: 'success',
                     delayPause: true
@@ -43,7 +43,7 @@
             }, 1000);
 
             // Third alert shown after a delay of 2 seconds
-            window.setTimeout(function() {
+            window.setTimeout(function setTimeout() {
                 $.bootstrapPurr('This is a "purr" with the multiple options that have been set', {
                     type: 'danger',
                     align: 'center',
@@ -53,7 +53,7 @@
             }, 2000);
 
             // Fourth alert shown after a delay of 3 seconds
-            window.setTimeout(function() {
+            window.setTimeout(function setTimeout() {
                 $.bootstrapPurr('This is another "purr" that will display until manually closed', {
                     type: 'info',
                     align: 'left',
@@ -63,7 +63,7 @@
             }, 3000);
 
             // Fifth alert shown after a delay of 4 seconds
-            window.setTimeout(function() {
+            window.setTimeout(function setTimeout() {
                 $.bootstrapPurr('This is a "purr" that can be dismissed on hover', {
                     type: 'danger',
                     align: 'center',
@@ -72,7 +72,6 @@
                     allowDismissType: 'hover'
                 });
             }, 4000);
-
         });
     </script>
 

@@ -29,15 +29,15 @@
         options.animateShow = options.animate_show || options.animateShow;
         options.animateHide = options.animate_hide || options.animateHide;
         options.delayPause = options.delay_pause || options.delayPause;
-        options.stackupSpacing = options.stackup_pacing || options.stackupSpacing;
+        options.stackupSpacing = options.stackup_spacing || options.stackupSpacing;
 
         // Create a temporary div element
-        var $alert = $('<div/>')
+        var $alert = $('<div/>');
 
         // Add the 'alert' and 'bootstrap-purr' classes for distinguishing
         // other Bootstrap alerts
-        .addClass('alert bootstrap-purr')
-            .attr('role', 'alert');
+        $alert.addClass('alert bootstrap-purr');
+        $alert.attr('role', 'alert');
 
         // If the 'type' is set, then add the relevant alert-* class name
         if (_isString(options.type) && _reType.test(options.type)) {
@@ -74,8 +74,8 @@
 
             // Append the close button to the alert and add the class
             // that specifies it's dimissible
-            $alert.append($button)
-                .addClass('alert-dismissible');
+            $alert.append($button);
+            $alert.addClass('alert-dismissible');
         }
 
         // Append the message to the alert. This could be HTML or simple a TEXT node
@@ -96,7 +96,7 @@
         var offsetTotal = options.offset.amount;
 
         // For each element with the class name of '.bootstrap-purr', calculate the total offset
-        $('.bootstrap-purr').each(function currentPurrs() {
+        $('.bootstrap-purr').each(function eachPurrs() {
             // Cache the jQuery selector
             var $this = $(this);
 

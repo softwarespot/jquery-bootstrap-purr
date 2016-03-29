@@ -162,6 +162,7 @@
 
             default:
                 $alert.css('right', '20px');
+                break;
         }
 
         // Set the default value of 'draggable' if not a boolean datatype

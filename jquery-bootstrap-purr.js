@@ -121,7 +121,7 @@
         // Set the css property i.e. top or bottom, with the offset total
         css[options.offset.from] = offsetTotal + 'px';
 
-        // Convert to lowercase
+        // Convert to lower-case
         options.width = ('' + options.width).toLowerCase();
 
         if (options.width !== 'auto' && $.isNumeric(options.width)) {
@@ -142,7 +142,7 @@
         // Append the alert to the parent element
         $parent.append($alert);
 
-        // Convert to uppercase for case-insensitive matching
+        // Convert to upper-case for case-insensitive matching
         if (_isString(options.align)) {
             options.align = options.align.toUpperCase();
         }

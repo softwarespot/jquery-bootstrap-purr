@@ -23,7 +23,7 @@
         // parameter we pass into this function
         options = $.extend({}, $.bootstrapPurr.options, options);
 
-        // jscs only workaround for checking old style properties
+        // eslint only workaround for checking old style properties
         options.allowDismiss = options.allow_dismiss || options.allowDismiss;
         options.allowDismissType = options.allow_dismiss_type || options.allowDismissType;
         options.animateShow = options.animate_show || options.animateShow;
